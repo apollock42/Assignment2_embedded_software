@@ -7,6 +7,9 @@ int task3Signal=2;
 int task4Signal=0;
 long frequency=0;
 long input4 = 0;
+int avAnalog=0;
+int error_code=2;
+int error=2;
 int T=0;
 #include <Ticker.h>
 #include <stdio.h>
@@ -43,19 +46,19 @@ void cycle(){
     //test3();
   }
   if (counter %21 ==0){
-    //t4Signal=test4();
+    t4Signal=test4();
   }
   if (counter %21 ==1){
-    //test5(t4Signal);
+    avAnalog=test5(t4Signal);
   }
   if (counter %50 ==0){
     //test6();
   }
   if (counter %167 ==0){
-    //test7();
+    error=test7(avAnalog);
   }
   if (counter %167 ==1){
-    //test8();
+    test8(error);
   }
   if (counter %2500 ==0){
     //test9();
@@ -83,17 +86,18 @@ void test3(){
 }
 int test4(){
   input4 = analogRead(task4Signal);
-  Serial.println(input4);
+  //Serial.println(input4);
   return input4;
 }
-void test5(int t4Input){
+int test5(int t4Input){
   task5Array[i]=t4Input;
   int average=0;
   for (int j=0;j<=4;j++){
     average=average+task5Array[j];
+  return average;
   }
   average=average/4;
-  Serial.println(average);
+  //Serial.println(average);
   if (i==3){
     i=0;
   }
@@ -107,11 +111,24 @@ void test6(){
     __asm__ __volatile__ ("nop");
   }
 }
-void test7(){
-  Serial.println("c");
+int test7(int avAnalIn){
+  if(avAnalIn > 4095/2){
+    error_code=1;
+  }
+  else{
+    error_code=0;
+  }
+  Serial.println(error_code);
+  Serial.println(avAnalIn);
+  
 }
-void test8(){
-  Serial.println("c");
+void test8(int error){
+  if (error==1){
+    digitalWrite(ledGreen,HIGH);
+  }
+  else{
+    digitalWrite(ledGreen,LOW);
+  }
 }
 void test9(){
   Serial.println("c");
