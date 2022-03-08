@@ -118,11 +118,12 @@ int test7(int avAnalIn){
   else{
     error_code=0;
   }
-  Serial.println(error_code);
-  Serial.println(avAnalIn);
+  //Serial.println(error_code);
+  //Serial.println(avAnalIn);
   
 }
 void test8(int error){
+  Serial.println(error);
   if (error==1){
     digitalWrite(ledGreen,HIGH);
   }
