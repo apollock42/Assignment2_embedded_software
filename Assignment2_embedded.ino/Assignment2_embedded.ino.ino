@@ -7,20 +7,19 @@ int task3Signal=2;
 int task4Signal=0;
 long frequency=0;
 long input4 = 0;
-int *task4Data;
-int test=0;
 int T=0;
-//#include <Ticker.h>
+#include <Ticker.h>
 #include <stdio.h>
 int i=0;
 int task5Array[]={0,0,0,0};
 
 void cycle();
-//Ticker ticker;
+Ticker ticker;
 int counter=0;
 //void test1();
-
+int t4Signal=0;
 void setup() {
+  
   // put your setup code here, to run once:
   Serial.begin(9600);
   delay(100);
@@ -30,9 +29,10 @@ void setup() {
   pinMode(rightButt,INPUT);
   pinMode(task3Signal, INPUT); 
   pinMode(task4Signal,INPUT);
-//  ticker.attach_ms(2,cycle);
+  ticker.attach_ms(2,cycle);
 }
 void cycle(){
+  
   counter++;
   // 24 120 5 5 12 40 40 600
   test1();
@@ -43,11 +43,12 @@ void cycle(){
     //test3();
   }
   if (counter %21 ==0){
-    int t4Signal=test4();
-    task4Data=&t4Signal;
+    //int t4Signal=test4();
+    t4Signal=1;
   }
   if (counter %21 ==1){
-    test5(*task4Data);
+    //test5(task4Data);
+    Serial.println(t4Signal);
   }
   if (counter %50 ==0){
     //test6();
@@ -99,8 +100,7 @@ void test5(int t4Input){
     i=0;
   }
   else{
-  i++;
-  //fevvevevete  
+  i++;  
   }
   
 }
