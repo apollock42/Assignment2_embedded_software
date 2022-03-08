@@ -43,12 +43,10 @@ void cycle(){
     //test3();
   }
   if (counter %21 ==0){
-    //int t4Signal=test4();
-    t4Signal=1;
+    //t4Signal=test4();
   }
   if (counter %21 ==1){
-    //test5(task4Data);
-    Serial.println(t4Signal);
+    //test5(t4Signal);
   }
   if (counter %50 ==0){
     //test6();
