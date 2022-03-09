@@ -121,7 +121,7 @@ int test4(){
 //takes in the voltage signal data from task4, with this data it adds it a four element array while
 //rewriting the oldest data entry. It then calculates the average of all of the elements in the array
 int test5(int t4Input){
-  task5Array[i]=t4Input;
+  task5Array[counter%4]=t4Input;
   int average=0;
   for (int j=0;j<=4;j++){
     average=average+task5Array[j];
@@ -129,12 +129,7 @@ int test5(int t4Input){
   }
   average=average/4;
   //Serial.println(average);
-  if (i==3){
-    i=0;
-  }
-  else{
-  i++;  
-  }
+  
   
 }
 //calls __asm__ __volatile__ ("nop") 1000 times every time this method is called.
@@ -152,6 +147,7 @@ int test7(int avAnalIn){
   else{
     error_code=0;
   }
+  return error_code;
   //Serial.println(error_code);
   //Serial.println(avAnalIn);
   
