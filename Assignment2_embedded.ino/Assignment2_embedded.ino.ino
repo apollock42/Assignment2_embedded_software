@@ -61,33 +61,35 @@ void cycle(){
   //this task is run every 100 ticks of the ticker. Since the ticker ticks every 2ms this means
   //this method is called every 200ms, which gives it a rate of 5Hz which is this tasks
   //specified rate
-  if (counter %25 == 0){
+  if (counter %25 == 2){
     //buttonState=test2();
   }
-  if (counter %125 ==0){
-    digitalWrite(ledGreen,HIGH);
+  if (counter %125 ==3){
+    
     freq=test3();
-    digitalWrite(ledGreen,LOW);
+    
   }
   if (counter %5 ==0){
-    //t4Signal=test4();
+    t4Signal=test4();
   }
   //this task takes in the signal data that task 4 returned and it calcultes the average signal data
   //then returns that data for other tasks to use.
   if (counter %5 ==1){
-    //avAnalog=test5(t4Signal);
+    //digitalWrite(ledGreen,HIGH);
+    avAnalog=test5(t4Signal);
+    //digitalWrite(ledGreen,LOW);
   }
   if (counter %13 ==0){
     test6();
   }
   if (counter %42 ==0){
-    //error=test7(avAnalog);
+    error=test7(avAnalog);
   }
   if (counter %42 ==1){
-    //test8(error);
+    test8(error);
   }
-  if (counter %625 ==0){
-    //test9(buttonState,freq,avAnalog);
+  if (counter %625 ==4){
+    test9(buttonState,freq,avAnalog);
   }
 }
 
