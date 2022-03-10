@@ -19,10 +19,11 @@ int buttonState=0;
 int i=0;
 int task5Array[]={0,0,0,0};
 int t4Signal=0;
+const int testPin=4;
 
 //adding the ticker library
 #include <Ticker.h>
-//#include <stdio.h>
+#include <stdio.h>
 
 //initialising the cyclic exectutive method
 void cycle();
@@ -31,7 +32,7 @@ void cycle();
 Ticker ticker;
 //this counter is used to recall how many cycles have passed
 int counter=0;
-//void test1();
+
 
 void setup() { 
   Serial.begin(9600);
@@ -43,8 +44,9 @@ void setup() {
   pinMode(rightButt,INPUT);
   pinMode(task3Signal, INPUT); 
   pinMode(task4Signal,INPUT);
+  pinMode(testPin,OUTPUT);
   //setting the ticker that was created before, set it to call the cycle method every 2ms
-  ticker.attach_ms(2,cycle);
+  ticker.attach_ms(4,cycle);
 }
 
 //this method is the cyclic exectutive, it calls all of the task methods which are later in the code.
@@ -59,31 +61,33 @@ void cycle(){
   //this task is run every 100 ticks of the ticker. Since the ticker ticks every 2ms this means
   //this method is called every 200ms, which gives it a rate of 5Hz which is this tasks
   //specified rate
-  if (counter %100 == 0){
-    buttonState=test2();
+  if (counter %25 == 0){
+    //buttonState=test2();
   }
-  if (counter %500 ==0){
+  if (counter %125 ==0){
+    digitalWrite(ledGreen,HIGH);
     freq=test3();
+    digitalWrite(ledGreen,LOW);
   }
-  if (counter %21 ==0){
-    t4Signal=test4();
+  if (counter %5 ==0){
+    //t4Signal=test4();
   }
   //this task takes in the signal data that task 4 returned and it calcultes the average signal data
   //then returns that data for other tasks to use.
-  if (counter %21 ==1){
-    avAnalog=test5(t4Signal);
+  if (counter %5 ==1){
+    //avAnalog=test5(t4Signal);
   }
-  if (counter %50 ==0){
+  if (counter %13 ==0){
     test6();
   }
-  if (counter %167 ==0){
-    error=test7(avAnalog);
+  if (counter %42 ==0){
+    //error=test7(avAnalog);
   }
-  if (counter %167 ==1){
-    test8(error);
+  if (counter %42 ==1){
+    //test8(error);
   }
-  if (counter %2500 ==0){
-    test9(buttonState,freq,avAnalog);
+  if (counter %625 ==0){
+    //test9(buttonState,freq,avAnalog);
   }
 }
 
@@ -95,21 +99,23 @@ void test1(){
 }
 //checks whether the button is being pressed and returns either a 1 or a 0 for each state
 int test2(){
+  
   pulseState=digitalRead(leftButt);
   if(pulseState==HIGH){
-    //Serial.println("task 2 button is being pressed");
+    Serial.println("task 2 button is being pressed");
     return 1;
   }
   else{
-    //Serial.println("task 2 button is not being pressed");
+    Serial.println("task 2 button is not being pressed");
     return 0;
   }
+ 
 }
 //calcultes the frequency of the inputted signal. It measures the signal peroid witht eh pulseIn() function
 int test3(){
   T=pulseIn(task3Signal,LOW);
   frequency=1/(2*(T*pow(10,-6)));
-  Serial.println(frequency);
+  //Serial.println(frequency);
   return frequency;
 }
 //takes in the signal and returns the voltage data
