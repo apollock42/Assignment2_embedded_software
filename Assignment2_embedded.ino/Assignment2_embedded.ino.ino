@@ -46,7 +46,7 @@ void setup() {
   pinMode(task4Signal,INPUT);
   pinMode(testPin,OUTPUT);
   //setting the ticker that was created before, set it to call the cycle method every 2ms
-  ticker.attach_ms(4,cycle);
+  ticker.attach_ms(8,cycle);
 }
 
 //this method is the cyclic exectutive, it calls all of the task methods which are later in the code.
@@ -62,12 +62,10 @@ void cycle(){
   //this method is called every 200ms, which gives it a rate of 5Hz which is this tasks
   //specified rate
   if (counter %25 == 2){
-    //buttonState=test2();
+    buttonState=test2();
   }
   if (counter %125 ==3){
-    
     freq=test3();
-    
   }
   if (counter %5 ==0){
     t4Signal=test4();
@@ -104,11 +102,11 @@ int test2(){
   
   pulseState=digitalRead(leftButt);
   if(pulseState==HIGH){
-    Serial.println("task 2 button is being pressed");
+    //Serial.println("task 2 button is being pressed");
     return 1;
   }
   else{
-    Serial.println("task 2 button is not being pressed");
+    //Serial.println("task 2 button is not being pressed");
     return 0;
   }
  
@@ -122,14 +120,16 @@ int test3(){
 }
 //takes in the signal and returns the voltage data
 int test4(){
+  digitalWrite(testPin,HIGH);
   input4 = analogRead(task4Signal);
   //Serial.println(input4);
+  digitalWrite(testPin,LOW);
   return input4;
 }
 //takes in the voltage signal data from task4, with this data it adds it a four element array while
 //rewriting the oldest data entry. It then calculates the average of all of the elements in the array
 int test5(int t4Input){
-  task5Array[counter%4]=t4Input;
+  task5Array[i]=t4Input;
   int average=0;
   for (int j=0;j<=4;j++){
     average=average+task5Array[j];
@@ -137,6 +137,12 @@ int test5(int t4Input){
   }
   average=average/4;
   //Serial.println(average);
+  if (i==3){
+    i=0;
+  }
+  else{
+    i++;
+  }
   
   
 }
